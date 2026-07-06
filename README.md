@@ -3,11 +3,8 @@ Aprendizaje de Python y PostgreSQL a través del desarrollo de un sitio web e ER
 
 --- Tables structure ---
 
-
-
 #=== clients ===
   Camp_name      Type
-
   id             number
   name           text
   reference      text
@@ -18,7 +15,6 @@ Aprendizaje de Python y PostgreSQL a través del desarrollo de un sitio web e ER
 
 #=== users ===
   Camp_name        Type
-
   id               number
   name             text
   address          text
@@ -28,14 +24,12 @@ Aprendizaje de Python y PostgreSQL a través del desarrollo de un sitio web e ER
 
 #=== roles ===
   Camp_name        Type
-
   id               number
   name             text
   privilege        number
 
 #=== top_ups ===  
   Camp_name                        Type
-
   id                               number
   vendor_id                        number
   client_id                        number
@@ -46,40 +40,34 @@ Aprendizaje de Python y PostgreSQL a través del desarrollo de un sitio web e ER
 
 #===payment===
   Camp_name          Type
-  
   id                 number
   payment               text
   
 #===companies===
   Camp_name          Type
-  
   id                 number
   company               text
 
 #===platforms===
   Camp_name          Type
-  
   id                 number
   platform           text
 
 #===modes===
   Camp_name          Type
-  
   id                 number
   mode               text
 
 #===amounts===
   Camp_name          Type
-
   id                 number
   amount             text
 
 #===company_platform_mode_amount===
   Camp_name          Type
-  
   id                 number
   company_id         number
-  platform_id
+  platform_id        number
   mode_id            number
   amount_id          number 
 
