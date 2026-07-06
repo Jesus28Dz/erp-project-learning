@@ -15,7 +15,7 @@ CREATE TABLE modes(
   mode_name VARCHAR(30)
 );
 
-CREATE TABLE amount(
+CREATE TABLE amounts(
   id SERIAL PRIMARY KEY,
   fixed_amount DECIMAL(10,2)
 );
