@@ -34,7 +34,7 @@ Aprendizaje de Python y PostgreSQL a través del desarrollo de un sitio web e ER
   vendor_id                        number
   client_id                        number
   payment_id                       number
-  company_platform_mode_amount     number
+  company_platform_mode_amount_id  number
   number                           text
   folio                            text
 
@@ -44,7 +44,7 @@ Aprendizaje de Python y PostgreSQL a través del desarrollo de un sitio web e ER
   vendor_id                        number
   client_id                        number
   payment_id                       number
-  company_platform                 number
+  company_platform_id              number
   amount                           number
   service_number                   text
   folio                            text
@@ -55,7 +55,7 @@ Aprendizaje de Python y PostgreSQL a través del desarrollo de un sitio web e ER
   vendor_id                        number
   client_id                        number
   payment_id                       number
-  company_platform_amount          number
+  company_platform_amount_id       number
   number                           text
   folio                            text
 
