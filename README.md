@@ -33,8 +33,29 @@ Aprendizaje de Python y PostgreSQL a través del desarrollo de un sitio web e ER
   id                               number
   vendor_id                        number
   client_id                        number
-  payment                          number
+  payment_id                       number
   company_platform_mode_amount     number
+  number                           text
+  folio                            text
+
+#=== services ===  
+  Camp_name                        Type
+  id                               number
+  vendor_id                        number
+  client_id                        number
+  payment_id                       number
+  company_platform                 number
+  amount                           number
+  service_number                   text
+  folio                            text
+
+#=== epin ===  
+  Camp_name                        Type
+  id                               number
+  vendor_id                        number
+  client_id                        number
+  payment_id                       number
+  company_platform_amount          number
   number                           text
   folio                            text
 
@@ -71,3 +92,15 @@ Aprendizaje de Python y PostgreSQL a través del desarrollo de un sitio web e ER
   mode_id            number
   amount_id          number 
 
+#===company_platform===
+  Camp_name          Type
+  id                 number
+  company_id         number
+  platform_id        number
+
+#===company_platform_amount===
+  Camp_name          Type
+  id                 number
+  company_id         number
+  platform_id        number
+  amount_id          number 
