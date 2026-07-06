@@ -25,6 +25,11 @@ CREATE TABLE roles(
   privilege INT  
 );
 
+CREATE TABLE payments(
+  id SERIAL PRIMARY KEY,
+  payment_method VARCHAR(20)
+);
+
 ----- clients & users -----
 CREATE TABLE clients(
   id SERIAL PRIMARY KEY,
@@ -47,9 +52,56 @@ CREATE TABLE users(
   role_id INT REFERENCES roles(id)
 );
 
------ tables with foreign keys -----
+----- relationt tables (rt) -----
+CREATE TABLE company_platform_mode_amount(
+  id SERIAL PRIMARY KEY,
+  company_id INT REFERENCES companies(id),
+  platform_id INT REFERENCES platforms(id),
+  mode_id INT REFERENCES modes(id),
+  amount_id INT REFERENCES amounts(id)
+);
+
 CREATE TABLE company_platform(
   id SERIAL PRIMARY KEY,
   company_id INT REFERENCES companies(id),
   platform_id INT REFERENCES platforms(id)
+);
+
+CREATE TABLE company_platform_amount(
+  id SERIAL PRIMARY KEY,
+  company_id INT REFERENCES companies(id),
+  platform_id INT REFERENCES platforms(id),
+  amount_id INT REFERENCES amounts(id)  
+);
+
+----- topup, service & pin tables -----
+CREATE TABLE topups(
+  id SERIAL PRIMARY KEY,
+  vendor_id INT REFERENCES users(id),
+  client_id INT REFERENCES clients(id),
+  payment_id INT REFERENCES payments(id),
+  company_platform_mode_amount_id INT REFERENCES company_platform_mode_amount(id),
+  phone_number VARCHAR(15),
+  folio  VARCHAR(50)
+);
+
+CREATE TABLE services(
+  id SERIAL PRIMARY KEY,
+  vendor_id INT REFERENCES users(id),
+  client_id INT REFERENCES clients(id),
+  payment_id INT REFERENCES payments(id),
+  company_platform_id INT REFERENCES company_platform(id),
+  amount DECIMAL(10,2),
+  service_number VARCHAR(15),
+  folio  VARCHAR(50)
+);
+
+CREATE TABLE pines(
+  id SERIAL PRIMARY KEY,
+  vendor_id INT REFERENCES users(id),
+  client_id INT REFERENCES clients(id),
+  payment_id INT REFERENCES payments(id),
+  company_platform_amount_id INT REFERENCES company_platform_amount(id),
+  phone_number VARCHAR(15),
+  folio  VARCHAR(50)
 );
