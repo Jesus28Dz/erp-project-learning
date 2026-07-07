@@ -30,7 +30,7 @@ CREATE TABLE payment_conditions(
   payment_condition VARCHAR(20)
 );
 
-CREATE TABLE paymet_methods(
+CREATE TABLE payment_methods(
   id SERIAL PRIMARY KEY,
   payment_method VARCHAR(20)
 );
@@ -90,9 +90,9 @@ CREATE TABLE sales(
 CREATE TABLE sales_lines(
   id SERIAL PRIMARY KEY,
   sale_id INT REFERENCES sales(id),
-  item_type_id INT REFERENCES item_type(id),
-  item_id INT REFERENCES item_type_id(id),
-  payment_condition_id REFERENCES payment_conditions(id)
+  item_type_id VARCHAR(20),
+  item_id INT,
+  payment_condition_id INT REFERENCES payment_conditions(id)
 );
 
 ----- credits -----
@@ -105,7 +105,7 @@ CREATE TABLE credits(
 CREATE TABLE credit_movements(
   id SERIAL PRIMARY KEY,
   client_account_id INT REFERENCES credits(id),
-  sale_line_id REFERENCES sales_line(id)
+  sale_line_id INT REFERENCES sales_line(id)
   amount DECIMAL(10.0)
 );
 
