@@ -105,8 +105,8 @@ CREATE TABLE credits(
 CREATE TABLE credit_movements(
   id SERIAL PRIMARY KEY,
   client_account_id INT REFERENCES credits(id),
-  sale_line_id INT REFERENCES sales_line(id)
-  amount DECIMAL(10.0)
+  sale_line_id INT REFERENCES sales_lines(id),
+  amount DECIMAL(10.2)
 );
 
 ----- topup, service & pin tables -----
