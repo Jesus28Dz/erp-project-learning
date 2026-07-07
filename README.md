@@ -64,7 +64,7 @@ company_platform_amount_id       number
 number                           text
 folio                            text
 
-#===payment===
+#=== payment ===
 Camp_name          Type
 id                 number
 payment               text
@@ -79,12 +79,12 @@ Camp_name          Type
 id                 number
 platform           text
 
-#===modes===
+#=== modes ===
 Camp_name          Type
 id                 number
 mode               text
 
-#===amounts===
+#=== amounts ===
 Camp_name          Type
 id                 number
 amount             text
@@ -97,7 +97,7 @@ platform_id        number
 mode_id            number
 amount_id          number 
 
-#===company_platform===
+#=== company_platform ===
 Camp_name          Type
 id                 number
 company_id         number
