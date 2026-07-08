@@ -45,6 +45,31 @@ CREATE TABLE credit_states(
   credit_state VARCHAR(20)
 );
 
+CREATE TABLE branches(
+  id SERIAL PRIMARY KEY,
+  branch_name VARCHAR(30),
+  branch_code VARCHAR(10)
+);
+
+CREATE TABLE equipment_types(
+  id SERIAL PRIMARY KEY,
+  equipment_type VARCHAR(30)
+);
+
+CREATE TABLE equipment_brands(
+  id SERIAL PRIMARY KEY,
+  equipment_brand VARCHAR(30)
+);
+
+CREATE TABLE equipment_models(
+  id SERIAL PRIMARY KEY,
+  equipment_model VARCHAR(30)
+);
+
+CREATE TABLE general_failures(
+  id SERIAL PRIMARY KEY,
+  general_failure VARCHAR(30)
+);
 ----- clients & users -----
 CREATE TABLE clients(
   id SERIAL PRIMARY KEY,
@@ -160,5 +185,27 @@ CREATE TABLE pins(
   phone_number VARCHAR(15),
   folio  VARCHAR(50),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+----- repairs -----
+CREATE TABLE repair_tickets(
+  id SERIAL PRIMARY KEY,
+  receiving_branch INT REFERENCES branches(id),
+  folio VARCHAR(20),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  receiving_user INT REFERENCES users(id),
+  client_name VARCHAR(50),
+  equipment_type INT REFERENCES equipment_types(id),
+  equioment_model INT REFERENCES equipment_models(id),
+  diagnosis VARCHAR(255),
+  general_failure INT REFERENCES general_failures(id),
+  observations TEXT,
+  phone VARCHAR(15)
+);
+
+CREATE TABLE repair_payments(
+  id SERIAL PRIMARY KEY,
+  repair_id INT REFERENCES repair_tickets(id),
+  
 );
 
