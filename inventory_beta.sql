@@ -25,7 +25,8 @@ CREATE TABLE products(
   tax_percentage DECIMAL(5,2) DEFAULT 0.00, 
   product_type_id INT REFERENCES product_types(id),
   product_category_id INT REFERENCES product_categories(id),
-  product_barcode VARCHAR(100)
+  product_barcode VARCHAR(100),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE product_inventories(
@@ -34,6 +35,7 @@ CREATE TABLE product_inventories(
   quantity_stock DECIMAL(10,2),
   purchase_cost DECIMAL(10,2),
   product_imei VARCHAR(100),
-  product_inventory_id INT REFERENCES inventories(id)
+  inventory_id INT REFERENCES inventories(id),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
