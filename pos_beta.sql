@@ -35,6 +35,16 @@ CREATE TABLE payment_methods(
   payment_method VARCHAR(20)
 );
 
+CREATE TABLE credit_movement_types(
+  id SERIAL PRIMARY KEY,
+  movement_type VARCHAR(20)
+);
+
+CREATE TABLE credit_states(
+  id SERIAL PRIMARY KEY,
+  credit_state VARCHAR(20)
+);
+
 ----- clients & users -----
 CREATE TABLE clients(
   id SERIAL PRIMARY KEY,
@@ -43,7 +53,8 @@ CREATE TABLE clients(
   address TEXT,
   phone1 VARCHAR(15),
   phone2 VARCHAR(15),
-  email VARCHAR(60)
+  email VARCHAR(60),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE users(
@@ -54,7 +65,8 @@ CREATE TABLE users(
   address TEXT,
   phone VARCHAR(15),
   email VARCHAR(60),
-  role_id INT REFERENCES roles(id)
+  role_id INT REFERENCES roles(id),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ----- relationt tables (rt) -----
@@ -76,7 +88,7 @@ CREATE TABLE company_platform_amount(
   id SERIAL PRIMARY KEY,
   company_id INT REFERENCES companies(id),
   platform_id INT REFERENCES platforms(id),
-  amount_id INT REFERENCES amounts(id)  
+  amount_id INT REFERENCES amounts(id)
 );
 
 ----- sales -----
@@ -84,29 +96,44 @@ CREATE TABLE sales(
   id SERIAL PRIMARY KEY,
   vendor_id INT REFERENCES users(id),
   client_id INT REFERENCES clients(id),
-  amount DECIMAL(10,2)
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE sales_lines(
   id SERIAL PRIMARY KEY,
   sale_id INT REFERENCES sales(id),
-  item_type_id VARCHAR(20),
+  item_type VARCHAR(20),
   item_id INT,
-  payment_condition_id INT REFERENCES payment_conditions(id)
+  payment_condition_id INT REFERENCES payment_conditions(id),
+  amount DECIMAL(10,2)
 );
+
+CREATE TABLE sales_payments(
+  id SERIAL PRIMARY KEY,
+  sale_id INT REFERENCES sales(id),
+  payment_method_id INT REFERENCES payment_methods(id),
+  amount DECIMAL(10,2)
+);
+
+----- index -----
+CREATE INDEX idx_sales_lines_item_type ON sales_lines(item_type, item_id);
+CREATE INDEX idx_sales_lines_sale_id ON sales_lines(sale_id);
 
 ----- credits -----
 CREATE TABLE credits(
   id SERIAL PRIMARY KEY,
   client_id INT REFERENCES clients(id),
-  credit DECIMAL(10, 2)
+  credit DECIMAL(10,2)
 );
 
 CREATE TABLE credit_movements(
   id SERIAL PRIMARY KEY,
   client_account_id INT REFERENCES credits(id),
   sale_line_id INT REFERENCES sales_lines(id),
-  amount DECIMAL(10.2)
+  movement_type_id INT REFERENCES credit_movement_types(id),
+  movement_state_id INT REFERENCES credit_states(id),
+  amount DECIMAL(10,2),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ----- topup, service & pin tables -----
@@ -114,7 +141,8 @@ CREATE TABLE topups(
   id SERIAL PRIMARY KEY,
   company_platform_mode_amount_id INT REFERENCES company_platform_mode_amount(id),
   phone_number VARCHAR(15),
-  folio  VARCHAR(50)
+  folio  VARCHAR(50),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE services(
@@ -122,13 +150,15 @@ CREATE TABLE services(
   company_platform_id INT REFERENCES company_platform(id),
   amount DECIMAL(10,2),
   service_number VARCHAR(15),
-  folio  VARCHAR(50)
+  folio  VARCHAR(50),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE pines(
+CREATE TABLE pins(
   id SERIAL PRIMARY KEY,
   company_platform_amount_id INT REFERENCES company_platform_amount(id),
   phone_number VARCHAR(15),
-  folio  VARCHAR(50)
+  folio  VARCHAR(50),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
