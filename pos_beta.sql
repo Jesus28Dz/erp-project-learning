@@ -70,6 +70,12 @@ CREATE TABLE general_failures(
   id SERIAL PRIMARY KEY,
   general_failure VARCHAR(30)
 );
+
+CREATE TABLE repair_status(
+  id SERIAL PRIMARY KEY,
+  status VARCHAR(30)
+);
+
 ----- clients & users -----
 CREATE TABLE clients(
   id SERIAL PRIMARY KEY,
@@ -188,24 +194,20 @@ CREATE TABLE pins(
 );
 
 ----- repairs -----
-CREATE TABLE repair_tickets(
+CREATE TABLE repairs(
   id SERIAL PRIMARY KEY,
-  receiving_branch INT REFERENCES branches(id),
+  receiving_branch_id INT REFERENCES branches(id),
   folio VARCHAR(20),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  receiving_user INT REFERENCES users(id),
+  receiving_user_id INT REFERENCES users(id),
   client_name VARCHAR(50),
-  equipment_type INT REFERENCES equipment_types(id),
-  equioment_model INT REFERENCES equipment_models(id),
+  equipment_type_id INT REFERENCES equipment_types(id),
+  equipmet_brands_id INT REFERENCES equipment_brands(id),
+  equipment_model_id INT REFERENCES equipment_models(id),
   diagnosis VARCHAR(255),
-  general_failure INT REFERENCES general_failures(id),
+  general_failure_id INT REFERENCES general_failures(id),
   observations TEXT,
-  phone VARCHAR(15)
-);
-
-CREATE TABLE repair_payments(
-  id SERIAL PRIMARY KEY,
-  repair_id INT REFERENCES repair_tickets(id),
-  
+  phone VARCHAR(15),
+  status_id INT REFERENCES repair_status(id)
 );
 
