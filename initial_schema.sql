@@ -115,6 +115,10 @@ CREATE TABLE clients(
   phone1 VARCHAR(15),
   phone2 VARCHAR(15),
   email VARCHAR(60),
+  foto_comprobante VARCHAR(255),
+  foto_domicilio VARCHAR(255),
+  foto_ine_frontal VARCHAR(255),
+  foto_ine_reverso VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -290,6 +294,8 @@ CREATE TABLE isp_contracts(
   status_id INT REFERENCES isp_statuses(id),
   product_inventory_id INT REFERENCES product_inventories(id),
   isp_router_id INT REFERENCES isp_routers(id),
+  latitud DECIMAL(10,8),
+  longitud DECIMAL(10,8),
   ipv4_address VARCHAR(30),
   ipv6_address VARCHAR(39),
   radius_user VARCHAR(20),
